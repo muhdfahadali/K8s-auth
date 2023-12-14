@@ -20,7 +20,7 @@ java --version
 ```
 You should see the Java version in the following output:
 
-![java-version](screenshots/java-version.png)
+![java-version](screenshots/java-version.PNG)
 
 Next, you will need to download the latest version of Keycloak from the GitHub website.
 
@@ -135,7 +135,7 @@ ss -antpl | grep 8080
 ```
 You will get the following output:
 
-![keycloak-server](screenshots/keycloak-server.png)
+![keycloak-server](screenshots/keycloak-server.PNG)
 
 You can also check the Keycloak server log using the following command:
 
@@ -166,7 +166,7 @@ Next, you will need to disable the HTTPS for Keycloak. You can disable it with t
 ```
 You will be asked to provide the admin password as shown below:
 
-![keycloak-admin](screenshots/keycloak-admin.png)
+![keycloak-admin](screenshots/keycloak-admin.PNG)
 
 Next, run the following command to disable the HTTPS:
 
@@ -177,4 +177,4 @@ Next, run the following command to disable the HTTPS:
 
 Now, open your web browser and access the Keycloak web interface using the URL http://your-server-ip:8080/auth/admin. You should see the Keycloak login page:
 
-![keycloak-auth](screenshots/keycloak-auth.png)
+![keycloak-auth](screenshots/keycloak-auth.PNG)
