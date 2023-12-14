@@ -16,7 +16,7 @@ This guide will walk you through the step-by-step process to set up WSL 2, insta
     ```
 2. Restart your computer.
 
-3. Download and install the WSL 2 Linux Kernel Update Package.
+3. Download and install the WSL2 [Linux Kernel](https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi) Update Package.
 
 4. Set WSL 2 as the default version:
     
@@ -102,3 +102,6 @@ This guide will walk you through the step-by-step process to set up WSL 2, insta
     ```
 
 Congratulations! You've successfully set up WSL 2, Ubuntu 22.04 LTS, Docker, Minikube, and kubectl on Windows 10.
+
+
+[Visit for installation guide for KeyCloak on Ubuntu 22.04 LTS](keycloak/install-guide.md)
