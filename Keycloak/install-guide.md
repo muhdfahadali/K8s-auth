@@ -1,180 +1,75 @@
-# Install KeyCloak on Ubuntu 22.04 LTS
 
-Run the following command to update all the packages to the latest version:
+### Keycloak Installation on Minikube Cluster
 
-```
-apt-get update -y
-apt-get upgrade -y
-```
+This guide provides step-by-step instructions for installing Keycloak on a Minikube cluster. Keycloak is an open-source Identity and Access Management (IAM) solution that can be easily integrated into Kubernetes environments.
 
-Keycloak is a Java based application. So we have to install Java JDK using the following command:
+## Prerequisites
 
-```
-apt-get install default-jdk -y
-```
+1. Minikube installed
 
-Once Java is installed, you can verify the Java version using the following command:
+2. kubectl installed
 
-```
-java --version
-```
-You should see the Java version in the following output:
+## Steps
 
-![java-version](screenshots/java-version.PNG)
+1. Start Minikube
+Ensure that Minikube is running with the required resources. Run the following command to start Minikube
 
-Next, you will need to download the latest version of Keycloak from the GitHub website.
+2. To check if you have the Ingress addon enabled, enter the following command:
 
 ```
-wget https://github.com/keycloak/keycloak/releases/download/15.0.2/keycloak-15.0.2.tar.gz
+minikube addons list
 ```
-
-After download, extract the downloaded file with the following command:
-
-```
-tar -xvzf keycloak-15.0.2.tar.gz
-```
-
-Next, move the extracted directory to the /opt with the following command:
+3. If the Ingress addon is not enabled, enter the following command to enable it:
 
 ```
-mv keycloak-15.0.2 /opt/keycloak
+minikube addons enable ingress
+```
+4. Start Keycloak
+
+The Keycloak QuickStarts repository includes some example files to help deploy Keycloak to Kubernetes.
+
+As a first step, create the Keycloak deployment and service by entering the following command:
+```
+kubectl create -f https://raw.githubusercontent.com/keycloak/keycloak-quickstarts/latest/kubernetes/keycloak.yaml
+```
+This command starts Keycloak on Kubernetes and creates an initial admin user with the username admin and password admin.
+
+5. Access Keycloak with Ingress addon enabled
+
+Now create an Ingress for Keycloak by entering the following command:
+
+```wget -q -O - https://raw.githubusercontent.com/keycloak/keycloak-quickstarts/latest/kubernetes/keycloak-ingress.yaml | \
+sed "s/KEYCLOAK_HOST/keycloak.$(minikube ip).nip.io/" | \
+kubectl create -f -
 ```
 
-Next, create a dedicated user and group for Keycloak with the following command:
+If wget and sed are not available, download the file and manually edit the file replacing KEYCLOAK_HOST with keycloak.<minikube ip address>.nip.io.
+
+6. Enter the following command to see the Keycloak URLs:
 
 ```
-groupadd keycloak
-
-useradd -r -g keycloak -d /opt/keycloak -s /sbin/nologin keycloak
+KEYCLOAK_URL=https://keycloak.$(minikube ip).nip.io &&
+echo "" &&
+echo "Keycloak:                 $KEYCLOAK_URL" &&
+echo "Keycloak Admin Console:   $KEYCLOAK_URL/admin" &&
+echo "Keycloak Account Console: $KEYCLOAK_URL/realms/myrealm/account" &&
+echo ""
 ```
 
-Next, set the ownership of the /opt/keycloak directory to keycloak:
+7. Access Keycloak without Ingress
+
+If the Ingress addon is not enabled, enter the following command in a separate shell:
 
 ```
-chown -R keycloak: /opt/keycloak
-
-chmod o+x /opt/keycloak/bin/
+minikube tunnel
 ```
-# Configure Keycloak
-
-Next, you will need to create a Keycloak configuration directory and copy the sample configuration file. You can create it inside the /etc directory:
+You can now access Keycloak from the following URL:
 
 ```
-mkdir /etc/keycloak
+KEYCLOAK_URL=http://$(minikube ip):$(kubectl get services/keycloak -o go-template='{{(index .spec.ports 0).nodePort}}') &&
+echo "" &&
+echo "Keycloak:                 $KEYCLOAK_URL" &&
+echo "Keycloak Admin Console:   $KEYCLOAK_URL/admin" &&
+echo "Keycloak Account Console: $KEYCLOAK_URL/realms/myrealm/account" &&
+echo ""
 ```
-
-Next, copy the sample configuration files from the /opt/keycloak directory using the following command:
-
-```
-cp /opt/keycloak/docs/contrib/scripts/systemd/wildfly.conf /etc/keycloak/keycloak.conf
-
-cp /opt/keycloak/docs/contrib/scripts/systemd/launch.sh /opt/keycloak/bin/
-```
-
-Next, set proper ownership using the following command:
-
-```
-chown keycloak: /opt/keycloak/bin/launch.sh
-```
-
-Next, edit the launch.sh file and define your Keycloak path:
-
-```
-nano /opt/keycloak/bin/launch.sh
-```
-
-Change the file as shown below:
-
-![keycloak-path](screenshots/keycloak-path.png)
-
-
-Save and close the file when you are finished.
-
-Next, you will need to create a systemd service file to manage the Keycloak service. You can copy the sample systemd service with the following command:
-
-```
-cp /opt/keycloak/docs/contrib/scripts/systemd/wildfly.service /etc/systemd/system/keycloak.service
-```
-
-Next, edit the keycloak.service file and define the Keycloak installation path:
-
-```
-nano /etc/systemd/system/keycloak.service
-```
-Change the file as shown below:
-
-![keycloak-service](screenshots/keycloak-service.png)
-
-Save and close the file then reload the systemd daemon to apply the changes:
-
-```
-systemctl daemon-reload
-```
-
-Next, start the Keycloak service and enable it to start at system reboot:
-
-```
-systemctl start keycloak
-
-systemctl enable keycloak
-```
-You can check the status of the Keycloak service with the following command:
-
-```
-systemctl status keycloak
-```
-
-You will get the following output:
-
-![keycloak-status](screenshots/keycloak-status.png)
-
-At this point, the Keycloak server is started and listens on port 8080. You can check it with the following command:
-
-```
-ss -antpl | grep 8080
-```
-You will get the following output:
-
-![keycloak-server](screenshots/keycloak-server.PNG)
-
-You can also check the Keycloak server log using the following command:
-
-```
-tail -f /opt/keycloak/standalone/log/server.log
-```
-
-# Create an Admin User for Keycloak
-
-Next, you will need to create an admin user to access the Keycloak web interface. Run the following command to create an admin user:
-
-```
-/opt/keycloak/bin/add-user-keycloak.sh -u admin
-```
-
-Set your password:
-
-Next, restart the Keycloak service to apply the changes:
-
-```
-systemctl restart keycloak
-```
-
-Next, you will need to disable the HTTPS for Keycloak. You can disable it with the following command:
-
-```
-/opt/keycloak/bin/kcadm.sh config credentials --server http://localhost:8080/auth --realm master --user admin
-```
-You will be asked to provide the admin password as shown below:
-
-![keycloak-admin](screenshots/keycloak-admin.PNG)
-
-Next, run the following command to disable the HTTPS:
-
-```
-/opt/keycloak/bin/kcadm.sh update realms/master -s sslRequired=NONE
-```
-# Access Keycloak Web Interface
-
-Now, open your web browser and access the Keycloak web interface using the URL http://your-server-ip:8080/auth/admin. You should see the Keycloak login page:
-
-![keycloak-auth](screenshots/keycloak-auth.PNG)
