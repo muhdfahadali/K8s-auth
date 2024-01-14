@@ -104,6 +104,6 @@ This guide will walk you through the step-by-step process to set up WSL 2, insta
 Congratulations! You've successfully set up WSL 2, Ubuntu 22.04 LTS, Docker, Minikube, and kubectl on Windows 10.
 
 
-[Visit for installation guide for KeyCloak on Ubuntu 22.04 LTS](/Keycloak/install-guide.md)
+[Visit for installation guide for KeyCloak in minikube cluster](/Keycloak/Readme.md)
 
-[Kubernetes Authentication and Authorization Demo](/rbac-demo/rbac-demo.md)
+[Kubernetes Authentication and Authorization Demo](/rbac-demo/Readme.md)
