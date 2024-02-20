@@ -57,8 +57,31 @@ kubectl get pods --selector=ray.io/cluster=raycluster-kuberay
 # raycluster-kuberay-head-vkj4n                 1/1     Running   0          XXs
 # raycluster-kuberay-worker-workergroup-xvfkr   1/1     Running   0          XXs
 ```
+# Step 5: Create Role for listing pods and Bind it to Service Account
+ 
+Creating a Role that allows listing pods in the default namespace
+```
+kubectl create role pod-reader --verb=get,list --resource=pods -n default
+```
 
-# Step 4: Run an application on a RayCluster
+Binding the Role to the service account
+```
+kubectl create rolebinding pod-reader-binding --role=pod-reader --serviceaccount=default:default -n default
+```
+
+# Step 6: Create a Role that allows executing commands and Bind it to Service Account
+
+Creating a Role that allows executing commands in pods
+```
+kubectl create role pod-exec --verb=create --resource=pods/exec -n default
+```
+
+Binding the Role to the service account
+```
+kubectl create rolebinding pod-exec-binding --role=pod-exec --serviceaccount=default:default -n default
+```
+
+# Step 7: Run an application on a RayCluster
 Now, let’s interact with the RayCluster we’ve deployed.
 
 # Submit a Ray job to the RayCluster via ray job submission SDK
