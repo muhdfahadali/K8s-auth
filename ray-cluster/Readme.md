@@ -1,4 +1,4 @@
-# RayCluster Installation
+# Kuberay Installation
 
 ## Prerequisites
 
@@ -22,12 +22,12 @@ helm repo update
 Install both CRDs and KubeRay operator v1.0.0.
 
 ```
-helm install kuberay-operator kuberay/kuberay-operator --version 1.0.0
+helm install kuberay-operator kuberay/kuberay-operator --version 1.0.0 --namespace ray-cluster
 ```
 Confirm that the operator is running in the namespace `default`.
 
 ```
-kubectl get pods
+kubectl get pods  -n ray-cluster
 
 # NAME                                READY   STATUS    RESTARTS   AGE
 # kuberay-operator-7fbdbf8c89-pt8bk   1/1     Running   0          27s
@@ -39,10 +39,10 @@ Once the KubeRay operator is running, we are ready to deploy a RayCluster. To do
 
 Deploy a sample RayCluster CR from the KubeRay Helm chart repo:
 ```
-helm install raycluster kuberay/ray-cluster --version 1.0.0
+helm install raycluster kuberay/ray-cluster --version 1.0.0 --namespace ray-cluster
 
 # Once the RayCluster CR has been created, you can view it by running:
-kubectl get rayclusters
+kubectl get rayclusters -n ray-cluster
 
 # NAME                 DESIRED WORKERS   AVAILABLE WORKERS   STATUS   AGE
 # raycluster-kuberay   1                 1                   ready    72s
@@ -51,7 +51,7 @@ kubectl get rayclusters
 The KubeRay operator will detect the RayCluster object. The operator will then start your Ray cluster by creating head and worker pods. To view Ray cluster’s pods, run the following command:
 ```
 # View the pods in the RayCluster named "raycluster-kuberay"
-kubectl get pods --selector=ray.io/cluster=raycluster-kuberay
+kubectl get pods --selector=ray.io/cluster=raycluster-kuberay  -n ray-cluster
 
 # NAME                                          READY   STATUS    RESTARTS   AGE
 # raycluster-kuberay-head-vkj4n                 1/1     Running   0          XXs
@@ -61,24 +61,24 @@ kubectl get pods --selector=ray.io/cluster=raycluster-kuberay
  
 Creating a Role that allows listing pods in the default namespace
 ```
-kubectl create role pod-reader --verb=get,list --resource=pods -n default
+kubectl create role pod-reader --verb=get,list --resource=pods -n ray-cluster
 ```
 
 Binding the Role to the service account
 ```
-kubectl create rolebinding pod-reader-binding --role=pod-reader --serviceaccount=default:default -n default
+kubectl create rolebinding pod-reader-binding --role=pod-reader --serviceaccount=default:default -n ray-cluster
 ```
 
 # Step 6: Create a Role that allows executing commands and Bind it to Service Account
 
 Creating a Role that allows executing commands in pods
 ```
-kubectl create role pod-exec --verb=create --resource=pods/exec -n default
+kubectl create role pod-exec --verb=create --resource=pods/exec -n ray-cluster
 ```
 
 Binding the Role to the service account
 ```
-kubectl create rolebinding pod-exec-binding --role=pod-exec --serviceaccount=default:default -n default
+kubectl create rolebinding pod-exec-binding --role=pod-exec --serviceaccount=default:default -n cluster
 ```
 
 # Step 7: Run an application on a RayCluster
@@ -88,7 +88,7 @@ Now, let’s interact with the RayCluster we’ve deployed.
 You can use the Ray job submission SDK to submit Ray jobs to the RayCluster via the Ray Dashboard port (8265 by default) where Ray listens for Job requests. The KubeRay operator configures a Kubernetes service targeting the Ray head Pod.
 
 ```
-kubectl get service raycluster-kuberay-head-svc
+kubectl get service raycluster-kuberay-head-svc -n ray-cluster
 
 # NAME                          TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)                                         AGE
 # raycluster-kuberay-head-svc   ClusterIP   10.96.93.74   <none>        8265/TCP,8080/TCP,8000/TCP,10001/TCP,6379/TCP   15m

@@ -107,3 +107,5 @@ Congratulations! You've successfully set up WSL 2, Ubuntu 22.04 LTS, Docker, Min
 [Visit for installation guide for KeyCloak in minikube cluster](/Keycloak/Readme.md)
 
 [Kubernetes Authentication and Authorization Demo](/rbac-demo/Readme.md)
+
+[Kuberay Installation](/ray-cluster/Readme.md)
