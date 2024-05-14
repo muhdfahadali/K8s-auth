@@ -24,20 +24,6 @@ The provided code consists of Python scripts that utilize Ray, specifically Ray 
 ![example-output](screenshots/example-output.jpg)
 The solution output above indicates the best hyperparameters found during hyperparameter optimization and the corresponding accuracy achieved by the model trained with those hyperparameters. In this case, the best hyperparameters are {'n_estimators': 126, 'max_depth': 8}, and the best accuracy achieved is 1.0.
 
-## Ray Components
-
-Ray is a distributed computing framework that enables efficient and scalable parallel and distributed Python applications. Within Ray, the following components are used in the provided code:
-
-- **Ray Tune**: A scalable hyperparameter tuning library built on top of Ray. It provides a simple and flexible interface for hyperparameter optimization tasks, including Bayesian optimization, random search, and grid search.
-
-- **Ray Train**: A part of the Ray Tune module, used for defining training functions and reporting metrics during hyperparameter optimization.
-
-- **Ray Data**: A component for efficient distributed data processing in Ray applications. Although not explicitly used in the provided code, Ray Data enables scalable data loading and processing for machine learning tasks.
-
-## Hyperparameter Optimization
-
-Hyperparameter optimization (HPO) is the process of finding the optimal hyperparameters for a machine learning model to maximize its performance on a given dataset. It involves searching through a predefined space of hyperparameters and evaluating the model's performance using a metric of interest. Ray Tune automates this process by efficiently exploring the hyperparameter space and parallelizing the training of multiple models.
-
 ## Techniques and Outcomes
 
 - **Techniques Used**: The code demonstrates the use of Ray Tune for hyperparameter optimization, including defining the search space, training models with different hyperparameter configurations, and analyzing results.
