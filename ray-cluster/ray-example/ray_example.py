@@ -14,7 +14,7 @@ from sklearn.ensemble import RandomForestClassifier
 from ray.tune.logger import UnifiedLogger
 
 # Initialize Ray
-ray.init()
+ray.init(address="ray://localhost:10001")
 
 # Define a function to load data
 def load_data():
