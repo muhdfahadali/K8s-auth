@@ -50,7 +50,7 @@ Replace image rayproject/ray:2.9.0 with muhdfahadali/my-custom-ray:2.9.0 in RayC
 ```
     spec:
         containers:
-        - image: rayproject/ray:2.9.0
+        - image: muhdfahadali/my-custom-ray:2.9.0
           lifecycle:
             preStop:
               exec:
