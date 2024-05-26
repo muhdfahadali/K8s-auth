@@ -111,7 +111,7 @@ workerGroupSpec:
 ```
 
 
-### Step 6: Delete the Existing Pod:
+### Step 2: Delete the Existing Pod:
 
 Delete the head or worker pod to force Kubernetes to recreate it with the all dependencies installed:
 
@@ -119,7 +119,7 @@ Delete the head or worker pod to force Kubernetes to recreate it with the all de
 kubectl delete pod raycluster-autoscaler-head-nxhdb -n ray-cluster
 ```
 
-### Step 7: Verify the New Pod:
+### Step 3: Verify the New Pod:
 
 Kubernetes will automatically create a new head or worker pod using the added configration file with the dependencies installed.
 
