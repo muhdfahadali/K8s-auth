@@ -34,3 +34,5 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
 
 The API server can then be accessed using `https://localhost:8080`.
+
+![keycloak](screenshots/argocd.jpg)

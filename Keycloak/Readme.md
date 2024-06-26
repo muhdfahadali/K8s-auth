@@ -73,3 +73,5 @@ echo "Keycloak Admin Console:   $KEYCLOAK_URL/admin" &&
 echo "Keycloak Account Console: $KEYCLOAK_URL/realms/myrealm/account" &&
 echo ""
 ```
+
+![keycloak](screenshots/keycloak-auth.PNG)
