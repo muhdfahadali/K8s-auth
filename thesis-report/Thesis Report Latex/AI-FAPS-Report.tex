@@ -1,0 +1,203 @@
+%\documentclass[12pt,a4paper,notitlepage,fleqn,twoside]{book}		% Zweiseitiger Druck
+%\documentclass[12pt,a4paper,notitlepage,fleqn,oneside]{book}		% Einseitiger Druck
+%\documentclass[12pt,a4paper,notitlepage,twoside]{book}		        % Zweiseitiger Druck, Formeln zentriert
+\documentclass[12pt,a4paper,notitlepage,oneside]{book}		        % Einseitiger Druck, Formeln zentriert
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   Layout - DO NOT CHANGE              	                                                         %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Ein- oder zweiseitiger Druck - Documentclass oben entsprechend anpassen!
+%\newcommand{\Drucklayout}{Einseitig}
+%\newcommand{\Drucklayout}{Zweiseitig}
+
+% Fuer serifenlose Schrift folgendes einkommentieren
+\newcommand{\Schriftart}{serifenlos}
+%\newcommand{\Schriftart}{LaTeX-Standard}
+
+% Ausrichtung der Formeln linksbuendig oder zentriert - Documentclass oben entsprechend anpassen!
+%\newcommand{\Formelausrichtung}{links}
+%\newcommand{\Formelausrichtung}{zentriert}
+
+% Verzeichnisse im Inhaltsverzeichnis auffuehren
+\newcommand{\preChapterToC}{ja}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   Packages, eigene Makros und Formatdefinitionen                                                 %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\include{Packages}				    % Notwendige Packete
+	\include{Makros}					% Selbstdefinierte Befehle
+	\include{Format}					% Allgemeines Format der Arbeit
+	\include{Format_speziell}	        % Spezielle Formatierungen (z.B. Silbentrennung)
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   Titel, Art der Arbeit, Bearbeiter und Abgabedatum - ADAPT TO YOUR OWN PROJECT REPORT           %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\newcommand{\TITEL}{Here is the Title of your Applied AI Project Captialized According to APA Style} % your project title
+	\newcommand{\STUDIENGANG}{Artificial Intelligence}      % your Master's program; alternatively Computer Science
+	\newcommand{\NAME}{Forename Surname}                    % your name
+	\newcommand{\MATRNR}{123456789}                         % your matriculation number 
+	\newcommand{\SUPERVISOR}{Andreas Mayr, M.Sc., M.Sc.}    % supervising research assistant with correct academic title
+	\newcommand{\BEARBEITUNGSZEIT}{6}			            % your actual processing time in months
+	\newcommand{\ENDE}{30.09.2022}                          % your submission data
+	\newcommand{\TITELBILD}{CoverImage}                     % a suitable image for the cover page
+
+% Pfad der Bilder usw.
+\graphicspath{{./Bilder/}{./CV/}{./Anhang/}}
+
+% Nur Abkuerzungsverzeichnis (bzw. danach Symbolverzeichnis)
+\newcommand{\Verzeichnisse}{AbkuerzungSymbol}
+
+% Nur Symbolverzeichnis
+%\newcommand{\Verzeichnisse}{Symbol}
+
+% Lebenslauf
+\newcommand{\Lebenslauf}{noCV}	    % kein Lebenslauf notwendig
+%\newcommand{\Lebenslauf}{CV}		% Lebenslauf am Ende der Arbeit
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   Hyperlinks usw. - DO NOT CHANGE                                                                %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Einstellungen fuer Hyperlinks usw.; auskommentiert wegen Fehler "Undefined control sequence" 
+%\ifthenelse{\boolean{@twoside}}{
+%	\hypersetup{
+%		hidelinks,
+%		pdfdisplaydoctitle=true,
+%		pdfstartview={Fit},
+%		pdfpagelayout=SinglePage,
+%		%pdfpagelayout=TwoPageRight,
+%		%pdfpagelayout=TwoPageLeft,
+%		pdfinfo={
+%			Title={\TITEL},
+%			Author={\NAME},
+%			Subject={\ARBEIT}
+%		}
+%	}
+%}
+%{
+%	\ifthenelse{\boolean{@oneside}}{
+		\hypersetup{
+			hidelinks,
+			pdfdisplaydoctitle=true,
+			pdfstartview={Fit},
+			pdfpagelayout=SinglePage,
+			pdfinfo={
+				Title={\TITEL},
+				Author={\NAME},
+				Subject={\ARBEIT}
+			}
+		}
+%	{}
+%}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   Verzeichnisse und Abkuerzungen - DO NOT CHANGE			                                     %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Abkuerzungen bzw. Verzeichnisse
+\include{Format_List_of_Abbreviations}
+% Makeindex-Eintrag (Ausgabeprofil - TeXnicCenter):
+%	Pfad:		C:\Program Files (x86)\MiKTeX 2.9\miktex\bin\makeindex.exe
+%	Argumente:	Arbeit.nlo -s nomencl.ist -o Arbeit.nls
+
+% weiteres Quellenverzeichnis
+\newcommand{\VZtitleQuellen}{Quellenverzeichnis}
+\newcites{Q}{\VZtitleQuellen}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   Inhalt der Arbeit                                                                              %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+        
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%   DO NOT CHANGE                                                                       %%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\pagenumbering{alph}
+	
+	\input{Cover}			    % Deckblatt
+
+	\input{Declaration}			% Erklaerung, dass alles alleine gemacht wurde
+
+        \input{Abstract}
+        
+	\frontmatter				% Roemische Seitennummerierung
+
+	%\nopagebreak
+	\cleardoublepage
+	\currentpdfbookmark{Contents}{Contents}	% Lesezeichen fuer Inhaltsverzeichnis
+	\tableofcontents			% Inhaltsverzeichnis
+	
+	\input{Format_List_of_Cont_Fig_Tab}
+
+	\mainmatter				    % Arabische Seitennummerierung
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%   FILL WITH OWN CONTENT                                                               %%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+%	The insertion of chapters is done here:
+%
+
+		\input{1_0_Introduction}
+
+		%\input{2_0_Related_Work}
+
+		\input{3_0_Proposed_Approach}
+
+		% Folgender Befehl erzwingt an entsprechender Stelle einen Seitenumbruch
+		% Bei einer Seite bitte ausblenden
+%		\addtocontents{toc}{\protect\newpage}
+
+		\input{4_0_Conclusion_and_Outlook}
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%   DO NOT CHANGE                                                                       %%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\input{Format_Bibliography}	% Literaturverzeichnis (BibTeX)	
+	
+	\appendix										% Beginn des Anhangs
+	\input{Format_Appendix}				% Formatierung des Anhangs
+		%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%   FILL WITH OWN CONTENT, IF APPLICABLE                                                %%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+%	The insertion of attachments is done here:
+%
+
+		\input{A_Appendix}
+		
+		%\includepdf[pages=1-2, scale=0.75, pagecommand={\thispagestyle{fancy}}, offset=0.5cm 1.5cm]{Test_Anhang.pdf}
+		%\cleardoublepage
+		
+		
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%  CV IF DESIRED (adjust the command \Lebenslauf above accordingly)                     %%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\ifthenelse{\equal{\Lebenslauf}{CV}}{
+		\currentpdfbookmark{Curriculum Vitae}{Curriculum Vitae}	% Lesezeichen fuer Lebenslauf
+		\thispagestyle{empty}
+		\includepdf[pages={1},offset= {0.5cm, -0.5cm}]{CurriculumVitae.pdf}
+		\cleardoublepage
+	}{}
+ 
+% 2023/06/23: added the following line for bug fix regarding abbreviations
+ \printnomenclature
+\end{document}
+

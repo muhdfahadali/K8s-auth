@@ -1,0 +1,54 @@
+\cleardoublepage
+\thispagestyle{plain}
+
+% Inhaltsverzeichnis-Eintrag
+\titlecontents{chapter}
+[0em]
+{\vspace{12pt}}
+{\contentslabel{1em}}
+{}
+{\vzPunkte\contentspage}
+
+% Code für Linksbuendigkeit der Klammern 
+\makeatletter 
+	\renewcommand*{\@biblabel}[1]{\makebox[\labelwidth][l]{[#1]}}
+\makeatother
+
+% Label-Width - Eintrag entspricht max. Anzahl an Ziffern
+\setbiblabelwidth{99}
+
+% Literaturverzeichnis Stil
+% 2023/06/23: changes bibliography style to a English one
+\bibliographystyle{ieeetr}
+%	Pfad:		C:\Program Files (x86)\MiKTeX 2.9\miktex\bin\bibtex.exe
+%	Argumente:	"%bm"}
+% Am besten aus Citavi exportieren
+\bibliography{Verzeichnis_Literatur}
+
+
+%%%%%% Extra Verzeichnisse %%%%%
+\cleardoublepage
+\thispagestyle{plain}
+
+% Inhaltsverzeichnis-Eintrag
+\titlecontents{chapter}
+[0em]
+{}
+{\contentslabel{1em}}
+{}
+{\vzPunkte\contentspage}
+
+%%%%% Quellenverzeichnis %%%%%%
+
+% Label-Width - Eintrag entspricht max. Anzahl an Ziffern
+\setbiblabelwidth{9}
+
+
+%	Postprozessor:
+		%Anwendung: 	bibtex.exe
+		%Argumente:		Q
+
+
+
+%% Layout Inhaltsverzeichnis wiederherstellen
+%\input{Format_ToC}
