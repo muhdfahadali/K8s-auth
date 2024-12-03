@@ -12,6 +12,34 @@
 {\vzPunkte\contentspage} % Formatierung nach Titel bis zur Seitenzahl
 
 
+% Define new list for code snippets
+\newlistof{listingsnippets}{lol}{List of Code Snippets}
+
+
+% Define how code snippets should appear in the list
+\newcommand{\listingsnippet}[2]{
+  \refstepcounter{listingsnippets} 
+  \addcontentsline{lol}{listingsnippets}{\protect\numberline{\thelistingsnippets}#1}%
+  \begin{tcolorbox}[colback=white, colframe=black, 
+    boxrule=0.5mm, sharp corners=south, 
+    bottomrule=0.5mm, toprule=0.5mm, left=0mm, right=0mm, coltitle=black]
+    \begin{lstlisting}
+#2
+    \end{lstlisting}
+  \end{tcolorbox}
+  \vspace{-0.5\baselineskip}
+  \begin{center} % Center the caption
+    \textit{Code Snippet \thelistingsnippets: #1} 
+  \end{center}
+  \label{listingsnippet:\thelistingsnippets}
+}
+
+
+
+% Custom format for list of code snippets (optional)
+\renewcommand{\cftlistingsnippetsleader}{\cftdotfill{\cftdotsep}} % Dotted lines in list
+
+
 % Abbildungsverzeichnis
 \cleardoublepage
 \addtocontents{lof}{\vskip -0.35cm}
@@ -27,6 +55,10 @@
 \renewcommand{\cfttabindent}{0em}
 \listoftables%
 
+
+\cleardoublepage
+\listoflistingsnippets % Generates the list of code snippets
+\addcontentsline{toc}{chapter}{List of Code Snippets} % Add the generated list to TOC
 
 % Abkuerzungs- und Symbolverzeichnis
 \cleardoublepage
@@ -51,7 +83,7 @@
 \titlecontents{subsection}
 [5.387em] % Abstand linker Textrand bis Kapitelueberschriften
 {} % Textformatierung
-{\contentslabel{2.605em}}% Abstand und Nummerierung vor Kapitelueberschriften
+{\contentslabel{3em}}% Abstand und Nummerierung vor Kapitelueberschriften
 {}
 {\vzPunkte\contentspage} % Formatierung nach Titel bis zur Seitenzahl
 

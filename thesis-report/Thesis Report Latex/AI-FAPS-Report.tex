@@ -38,13 +38,13 @@
 %%%   Titel, Art der Arbeit, Bearbeiter und Abgabedatum - ADAPT TO YOUR OWN PROJECT REPORT           %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-	\newcommand{\TITEL}{Here is the Title of your Applied AI Project Captialized According to APA Style} % your project title
+	\newcommand{\TITEL}{Implementation of an cloud-native architecture for secure, scalable and distributed computation} % your project title
 	\newcommand{\STUDIENGANG}{Artificial Intelligence}      % your Master's program; alternatively Computer Science
-	\newcommand{\NAME}{Forename Surname}                    % your name
-	\newcommand{\MATRNR}{123456789}                         % your matriculation number 
-	\newcommand{\SUPERVISOR}{Andreas Mayr, M.Sc., M.Sc.}    % supervising research assistant with correct academic title
+	\newcommand{\NAME}{Muhammad Fahad Ali}                    % your name
+	\newcommand{\MATRNR}{22995110}                         % your matriculation number 
+	\newcommand{\SUPERVISOR}{Benedikt Scheffler, M.Sc.}    % supervising research assistant with correct academic title
 	\newcommand{\BEARBEITUNGSZEIT}{6}			            % your actual processing time in months
-	\newcommand{\ENDE}{30.09.2022}                          % your submission data
+	\newcommand{\ENDE}{30.10.2024}                          % your submission data
 	\newcommand{\TITELBILD}{CoverImage}                     % a suitable image for the cover page
 
 % Pfad der Bilder usw.
@@ -57,8 +57,8 @@
 %\newcommand{\Verzeichnisse}{Symbol}
 
 % Lebenslauf
-\newcommand{\Lebenslauf}{noCV}	    % kein Lebenslauf notwendig
-%\newcommand{\Lebenslauf}{CV}		% Lebenslauf am Ende der Arbeit
+%\newcommand{\Lebenslauf}{noCV}	    % kein Lebenslauf notwendig
+\newcommand{\Lebenslauf}{CV}		% Lebenslauf am Ende der Arbeit
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -113,7 +113,10 @@
 \newcommand{\VZtitleQuellen}{Quellenverzeichnis}
 \newcites{Q}{\VZtitleQuellen}
 
-
+\usepackage{notoccite}
+\usepackage{tcolorbox}
+\usepackage{svg}
+\usepackage{graphicx}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%   Inhalt der Arbeit                                                                              %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -129,8 +132,6 @@
 	\input{Cover}			    % Deckblatt
 
 	\input{Declaration}			% Erklaerung, dass alles alleine gemacht wurde
-
-        \input{Abstract}
         
 	\frontmatter				% Roemische Seitennummerierung
 
@@ -152,17 +153,20 @@
 %
 
 		\input{1_0_Introduction}
+  
+		\input{2_0_State_of_the_Art}
+  
+            \input{3_0_Methodology}
+            
+            \input{4_0_Implementation}
 
-		%\input{2_0_Related_Work}
-
-		\input{3_0_Proposed_Approach}
+            \input{5_0_Comparison_of_Ray}
+            
+            \input{6_0_Conclusion and Future Work}
 
 		% Folgender Befehl erzwingt an entsprechender Stelle einen Seitenumbruch
 		% Bei einer Seite bitte ausblenden
 %		\addtocontents{toc}{\protect\newpage}
-
-		\input{4_0_Conclusion_and_Outlook}
-
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%%%   DO NOT CHANGE                                                                       %%%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -180,7 +184,7 @@
 %	The insertion of attachments is done here:
 %
 
-		\input{A_Appendix}
+		%\input{A_Appendix}
 		
 		%\includepdf[pages=1-2, scale=0.75, pagecommand={\thispagestyle{fancy}}, offset=0.5cm 1.5cm]{Test_Anhang.pdf}
 		%\cleardoublepage
@@ -193,11 +197,9 @@
 	\ifthenelse{\equal{\Lebenslauf}{CV}}{
 		\currentpdfbookmark{Curriculum Vitae}{Curriculum Vitae}	% Lesezeichen fuer Lebenslauf
 		\thispagestyle{empty}
-		\includepdf[pages={1},offset= {0.5cm, -0.5cm}]{CurriculumVitae.pdf}
+		\includepdf[pages={1},offset= {0.5cm, -0.5cm}]{CV/CurriculumVitae.pdf}
 		\cleardoublepage
 	}{}
  
-% 2023/06/23: added the following line for bug fix regarding abbreviations
- \printnomenclature
 \end{document}
 

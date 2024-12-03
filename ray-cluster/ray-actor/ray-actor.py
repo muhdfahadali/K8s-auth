@@ -12,5 +12,6 @@ class Counter:
     def get_counter(self):
         return self.value
 
-# Create an actor from this class.
+# create an actor from this class.
+
 counter = Counter.remote()

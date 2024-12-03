@@ -11,5 +11,5 @@ class GPUActor:
 # Request actor placement.
 gpu_actor = GPUActor.remote()
 
-# block Ray pod with GPU access is scaled
+# block Ray pod with GPU access is scaled.
 ray.get(gpu_actor.say_hello.remote())

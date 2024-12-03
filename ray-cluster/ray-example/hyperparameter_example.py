@@ -1,7 +1,7 @@
 from ray import train, tune
 
 
-def objective(config):  # ①
+def objective(config): 
     score = config["a"] ** 2 + config["b"]
     return {"score": score}
 
@@ -11,7 +11,7 @@ search_space = {  # ②
     "b": tune.choice([1, 2, 3]),
 }
 
-tuner = tune.Tuner(objective, param_space=search_space)  # ③
+tuner = tune.Tuner(objective, param_space=search_space)  
 
 results = tuner.fit()
 print(results.get_best_result(metric="score", mode="min").config)

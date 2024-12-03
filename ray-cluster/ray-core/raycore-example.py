@@ -3,8 +3,7 @@ ray.init()
 import time
 
 database = [
-    "Learning", "Ray",
-    "Flexible", "Distributed", "Python", "for", "Machine", "Learning"
+    "Learning", "Ray", "Flexible", "Distributed", "Python", "for", "Machine", "Learning"
 ]
 
 

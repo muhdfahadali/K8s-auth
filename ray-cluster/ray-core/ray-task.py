@@ -7,8 +7,7 @@ def normal_function():
     return 1
 
 
-# By adding the `@ray.remote` decorator, a regular Python function
-# becomes a Ray remote function.
+# By adding the `@ray.remote` decorator, a regular Python function becomes a Ray remote function.
 @ray.remote
 def my_function():
     return 1
@@ -18,7 +17,7 @@ def my_function():
 # a task that will be executed on a worker process.
 obj_ref = my_function.remote()
 
-# The result can be retrieved with ``ray.get``.
+# The result can be retrieved with `ray.get`.
 assert ray.get(obj_ref) == 1
 
 
